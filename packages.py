@@ -10,6 +10,8 @@ inits = lambda x: x.strip()
 PACMAN_PACKAGES = initp("""
 base-devel
 git
+make
+cmake
 neovim
 zsh
 tmux
@@ -17,6 +19,11 @@ keyd
 chezmoi
 python-pipx
 gdb
+make
+fd
+fzf
+ripgrep
+jq
 """)
 
 ############################################ AUR
@@ -50,7 +57,7 @@ normcap
 """)
 
 
-############################################ misc scripts
+############################################ extras
 INSTALL_MISE = inits("""
 curl https://mise.run | sh
 """)
@@ -59,14 +66,15 @@ INSTALL_PYENV = inits("""
 curl -fsSL https://pyenv.run | bash
 """)
 
-########################################### chezmoi
 CHEZMOI_URL = "https://github.com/2elli/dots"
 
 INIT_CHEZMOI = inits(f"""
 chezmoi init {CHEZMOI_URL} --apply
 """)
 
-############################################ extras
+INIT_NEOVIM = inits("""
+git clone https://github.com/2elli/nvim.git ~/.config/nvim
+""")
 
 
 def main():
@@ -84,6 +92,7 @@ def main():
     parser.add_argument("--mise", action="store_true", help="print mise install script")
     parser.add_argument("--chezmoi", action="store_true", help="print chezmoi script")
     parser.add_argument("--copy_keyd", action="store_true", help="print script to copy keyd from chezmoi to correct place")
+    parser.add_argument("--nvim", action="store_true", help="setup nvim")
 
     args = parser.parse_args()
 
@@ -93,7 +102,7 @@ def main():
         print("# packages")
     if a or args.pacman:
         print("## pacman")
-        print(("pacman -S " if a else "") + PACMAN_PACKAGES)
+        print(("pacman -S --needed" if a else "") + PACMAN_PACKAGES)
     if a or args.aur:
         print("## aur")
         print((f"{AUR_HELPER} -S " if a else "") + AUR_PACKAGES)
@@ -120,6 +129,9 @@ def main():
     if e or args.keyd:
         print("## copy keyd")
         print("cp $(chezmoi source-path)/dot_config/keyd/default.conf /etc/keyd/")
+    if e or args.nvim:
+        print("## neovim")
+        print(INIT_NEOVIM)
 
 
 if __name__ == "__main__":
