@@ -115,7 +115,7 @@ def main():
         print(PIPX_PACKAGES)
 
     # extras
-    e = args.all or args.extras
+    e = args.all or args.all_extras
     if e:
         print("# scripts")
     if e or args.pyenv:
