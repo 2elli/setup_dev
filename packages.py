@@ -127,7 +127,7 @@ def main():
     if e or args.chezmoi:
         print("## chezmoi")
         print(INIT_CHEZMOI)
-    if e or args.keyd:
+    if e or args.copy_keyd:
         print("## copy keyd")
         print("cp $(chezmoi source-path)/dot_config/keyd/default.conf /etc/keyd/")
     if e or args.nvim:
