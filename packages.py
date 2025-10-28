@@ -25,6 +25,7 @@ fzf
 ripgrep
 jq
 seahorse
+ttf-jetbrains-mono-nerd
 """)
 
 ############################################ AUR
