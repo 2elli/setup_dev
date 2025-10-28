@@ -103,7 +103,7 @@ def main():
         print("# packages")
     if a or args.pacman:
         print("## pacman")
-        print(("pacman -S --needed" if a else "") + PACMAN_PACKAGES)
+        print(("pacman -S --needed " if a else "") + PACMAN_PACKAGES)
     if a or args.aur:
         print("## aur")
         print((f"{AUR_HELPER} -S " if a else "") + AUR_PACKAGES)
